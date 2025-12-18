@@ -50,11 +50,18 @@ Deno.serve(async (request) => {
     };
     
     // 7. 转发请求到Gemini
-    const geminiResponse = await fetch(targetUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(geminiRequest),
-    });
+console.log("Forwarding to Gemini, request body:", JSON.stringify(geminiRequest));
+
+const geminiResponse = await fetch(targetUrl, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(geminiRequest),
+});
+
+console.log("Gemini response status:", geminiResponse.status);
+
+const geminiData = await geminiResponse.json();
+console.log("Full Gemini API response:", JSON.stringify(geminiData));
     
     const geminiData = await geminiResponse.json();
     
